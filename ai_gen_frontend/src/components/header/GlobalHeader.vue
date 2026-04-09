@@ -21,7 +21,13 @@ import { h, ref } from 'vue'
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { MenuProps } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
+import { userLoginStore } from '@/stores/user'
 const router = useRouter()
+const userStore = userLoginStore()
+
+const handleLogin = () => {
+  userStore.handleLogin()
+}
 
 const doMenuClick = ({ key }: { key: string }) => {
   router.push({
