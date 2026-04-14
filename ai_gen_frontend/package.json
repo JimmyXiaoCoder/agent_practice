@@ -9,23 +9,26 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "openapi": "tsx openapi2ts.config.ts"
   },
   "dependencies": {
     "ant-design-vue": "^4.2.6",
-    "axios": "^1.14.0",
+    "axios": "^1.15.0",
     "pinia": "^3.0.4",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
-    "@types/node": "^22.15.32",
+    "@types/node": "^22.19.17",
     "@umijs/openapi": "^1.14.1",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.7.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.5.3",
+    "tslib": "^2.8.1",
+    "tsx": "^4.21.0",
     "typescript": "~5.8.0",
     "vite": "^7.0.0",
     "vite-plugin-vue-devtools": "^7.7.7",

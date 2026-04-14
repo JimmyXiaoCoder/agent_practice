@@ -9,9 +9,14 @@
     <a-col flex="auto" class="nav">
       <a-menu v-model:selectedKeys="current" mode="horizontal" :items="items" @click="doMenuClick"/>
     </a-col>
-    <a-col flex="120px" class="user-info">
+    <a-col flex="70px" class="user-info">
       <div class="user-login-status">
         <a-button type="primary" href="/user/login">登录</a-button>
+      </div>
+    </a-col>
+    <a-col flex="70px" class="user-info">
+      <div class="user-login-status">
+        <a-button href="/user/register">注册</a-button>
       </div>
     </a-col>
   </a-row>
