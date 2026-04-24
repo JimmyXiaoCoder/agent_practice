@@ -72,7 +72,7 @@ const handleSubmit = async () => {
   const response = await register(formState)
   if (response.data.code === 200) {
     message.success('注册成功!')
-    router.push('/')
+    router.push('/user/login')
   } else {
     message.error('注册失败: ' + response.data.message)
   }

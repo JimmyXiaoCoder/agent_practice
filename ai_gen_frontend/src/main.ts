@@ -8,8 +8,12 @@ import router from './router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css'
 
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+
 const app = createApp(App)
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
 app.use(createPinia())
 app.use(router)

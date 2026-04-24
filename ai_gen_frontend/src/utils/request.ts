@@ -1,9 +1,10 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8123',
+  baseURL: 'http://localhost:8123/api',
   timeout: 1000,
-  headers: {'X-Custom-Header': 'foobar'}
+  headers: {'X-Custom-Header': 'foobar'},
+  withCredentials: true, // 允许携带cookie
 });
 
 // 添加请求拦截器
