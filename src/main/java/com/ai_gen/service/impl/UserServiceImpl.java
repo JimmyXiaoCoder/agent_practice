@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.ai_gen.entity.User;
 import com.ai_gen.exception.BusinessException;
 import com.ai_gen.mapper.UserMapper;
-import com.ai_gen.model.vo.LoginUserVO;
+import com.ai_gen.model.vo.UserVO;
 import com.ai_gen.service.UserService;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
@@ -79,15 +79,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
     }
 
     @Override
-    public LoginUserVO getLoginUserVO(User user) {
+    public UserVO getLoginUserVO(User user) {
 
-        LoginUserVO loginUserVO = new LoginUserVO();
-        BeanUtil.copyProperties(user,loginUserVO);
-        return loginUserVO;
+        UserVO userVO = new UserVO();
+        BeanUtil.copyProperties(user, userVO);
+        return userVO;
     }
 
     @Override
-    public LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request) {
+    public UserVO userLogin(String userAccount, String userPassword, HttpServletRequest request) {
 
         if (StrUtil.hasBlank(userAccount,userPassword)) {
             throw new BusinessException(PARAMS_ERROR,"账号/密码不能为空");

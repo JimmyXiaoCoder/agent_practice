@@ -3,7 +3,7 @@ package com.ai_gen.controller;
 import com.ai_gen.entity.User;
 import com.ai_gen.model.dto.UserLoginRequest;
 import com.ai_gen.model.dto.UserRegisterRequest;
-import com.ai_gen.model.vo.LoginUserVO;
+import com.ai_gen.model.vo.UserVO;
 import com.ai_gen.response.BaseResponse;
 import com.ai_gen.service.UserService;
 import com.ai_gen.utils.ResultUtils;
@@ -33,20 +33,20 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public BaseResponse<LoginUserVO> login(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
-        LoginUserVO loginUserVO = userService.userLogin(userLoginRequest.getUserAccount(), userLoginRequest.getUserPassword(), request);
-        return ResultUtils.success(loginUserVO);
+    public BaseResponse<UserVO> login(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
+        UserVO userVO = userService.userLogin(userLoginRequest.getUserAccount(), userLoginRequest.getUserPassword(), request);
+        return ResultUtils.success(userVO);
     }
 
     @GetMapping("/getCurUser")
 //    @AuthCheck(mustRole = "admin")
-    public BaseResponse<LoginUserVO> getCurUser(HttpServletRequest request) {
+    public BaseResponse<UserVO> getCurUser(HttpServletRequest request) {
         User user = userService.getLoginUser(request);
         return ResultUtils.success(userService.getLoginUserVO(user));
     }
 
     @GetMapping("/logout")
-    public BaseResponse<LoginUserVO> logout(HttpServletRequest request) {
+    public BaseResponse<UserVO> logout(HttpServletRequest request) {
         userService.userLogout(request);
         return ResultUtils.success();
     }
