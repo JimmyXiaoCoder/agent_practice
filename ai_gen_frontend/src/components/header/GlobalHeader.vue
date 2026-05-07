@@ -103,6 +103,11 @@ const items = ref<MenuProps['items']>([
     label: h('a', { href: 'https://antdv.com', target: '_blank' }, 'Navigation Four - Link'),
     title: 'Navigation Four - Link',
   },
+  {
+    key: '/user/management',
+    label: '用户管理',
+    title: '用户管理',
+  },
 ])
 </script>
 <style scoped>

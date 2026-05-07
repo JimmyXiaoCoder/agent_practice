@@ -1,4 +1,5 @@
 import axios from 'axios'
+import message from 'ant-design-vue/es/message';
 
 const instance = axios.create({
   baseURL: 'http://localhost:8123/api',
@@ -8,9 +9,8 @@ const instance = axios.create({
 });
 
 // 添加请求拦截器
-axios.interceptors.request.use(function (config) {
-    // 在发送请求之前做些什么
-    console.log('请求被拦截了', config);
+instance.interceptors.request.use(function (config) {
+    
     return config;
   }, function (error) {
     // 对请求错误做些什么
@@ -18,9 +18,16 @@ axios.interceptors.request.use(function (config) {
   });
 
 // 添加响应拦截器
-axios.interceptors.response.use(function (response) {
-    // 2xx 范围内的状态码都会触发该函数。
-    // 对响应数据做点什么
+instance.interceptors.response.use(function (response) {
+  console.log("响应结果"+response.data)
+    
+    if (response.data.code === 40100) {
+        message.warning(response.data.message || '未登录');
+        setTimeout(() => {
+          window.location.href = `/user/login`;
+        },1000)
+    }
+
     return response;
   }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。

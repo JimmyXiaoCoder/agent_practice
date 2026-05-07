@@ -4,9 +4,13 @@
 // API 唯一标识：
 import * as userController from './userController'
 import * as bodycanshu from './bodycanshu'
+import * as appController from './appController'
+import * as staticResourceController from './staticResourceController'
 import * as healthController from './healthController'
 export default {
   userController,
   bodycanshu,
+  appController,
+  staticResourceController,
   healthController,
 }

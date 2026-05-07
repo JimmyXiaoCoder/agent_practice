@@ -5,7 +5,7 @@ import { getCurUser } from '@/api/userController'
 export const userLoginStore = defineStore(
   'loginUser',
   () => {
-    const loginUser = ref<API.LoginUserVO>({
+    const loginUser = ref<API.UserVO>({
       userName: '未登录',
     })
     //   const doubleCount = computed(() => count.value * 2)
