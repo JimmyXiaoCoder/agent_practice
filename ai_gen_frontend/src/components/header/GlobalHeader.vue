@@ -10,7 +10,7 @@
       <a-menu
         v-model:selectedKeys="current"
         mode="horizontal"
-        :items="items"
+        :items="menuItem"
         @click="doMenuClick"
       />
     </a-col>
@@ -51,7 +51,7 @@
   </a-row>
 </template>
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { computed, h, ref } from 'vue'
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { MenuProps } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
@@ -85,7 +85,7 @@ const current = ref<string[]>(['/'])
 router.afterEach((to) => {
   current.value = [to.path]
 })
-const items = ref<MenuProps['items']>([
+const originItems = ref<MenuProps['items']>([
   {
     key: '/',
     icon: () => h(MailOutlined),
@@ -103,7 +103,34 @@ const items = ref<MenuProps['items']>([
     label: h('a', { href: 'https://antdv.com', target: '_blank' }, 'Navigation Four - Link'),
     title: 'Navigation Four - Link',
   },
+  {
+    key: '/admin/user/management',
+    label: '用户管理',
+    title: '用户管理',
+  },
+  {
+    key: '/test',
+    label: '测试页面',
+    title: '测试页面1'
+  }
 ])
+
+const filterMenus = (menus= [] as MenuProps['items']) => {
+  const loginUser = loginStore.loginUser
+  return menus?.filter((menu) => {
+    const menuKey = menu?.key as string
+    if (menuKey.startsWith('/admin')) {
+      if(loginUser && loginUser.userRole === 'admin') {
+        return true
+      } else {
+        return false
+      }
+    }
+    return true
+  })
+}
+
+const menuItem = computed<MenuProps['items']>(() => filterMenus(originItems.value))
 </script>
 <style scoped>
 #user-login-status {

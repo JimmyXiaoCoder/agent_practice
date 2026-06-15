@@ -1,7 +1,7 @@
 package com.ai_gen.service;
 
 import com.ai_gen.entity.User;
-import com.ai_gen.model.vo.LoginUserVO;
+import com.ai_gen.model.vo.UserVO;
 import com.mybatisflex.core.service.IService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -35,7 +35,7 @@ public interface UserService extends IService<User> {
      *
      * @return
      */
-    LoginUserVO getLoginUserVO(User user);
+    UserVO getLoginUserVO(User user);
 
 
     /**
@@ -45,7 +45,7 @@ public interface UserService extends IService<User> {
      * @param request http请求
      * @return
      */
-    LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
+    UserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
 
     /**
      * 用户退出登录
@@ -59,5 +59,7 @@ public interface UserService extends IService<User> {
      * @return
      */
     User getLoginUser(HttpServletRequest request);
+
+
 
 }
