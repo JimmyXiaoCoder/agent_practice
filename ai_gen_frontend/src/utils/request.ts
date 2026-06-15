@@ -19,9 +19,11 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
-  console.log("响应结果"+response.data)
-    
-    if (response.data.code === 40100) {
+  const path = window.location.pathname  
+  const isLoginPage = path === '/user/login'
+
+    if (!isLoginPage && response.data.code === 40100) {
+        console.log('未登录，跳转到登录页')
         message.warning(response.data.message || '未登录');
         setTimeout(() => {
           window.location.href = `/user/login`;

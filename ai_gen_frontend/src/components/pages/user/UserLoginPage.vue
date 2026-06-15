@@ -1,26 +1,28 @@
 <template>
-  <div>
+  <div class="login-page">
+    <h1 class="login-page__title">代码生成平台</h1>
+    <h3>登录</h3>
     <a-form
+      class="login-page__form"
       :model="formState"
       name="basic"
-      :label-col="{ span: 8 }"
-      :wrapper-col="{ span: 16 }"
+      layout="vertical"
       autocomplete="off"
       @finish="handleSubmit"
       @finishFailed="onFinishFailed"
     >
       <a-form-item
-        label="UserAccount"
+        label="账号"
         name="userAccount"
-        :rules="[{ required: true, message: 'Please input your UserAccount!' }]"
+        :rules="[{ required: true, message: '请输入账号' }]"
       >
         <a-input v-model:value="formState.userAccount" />
       </a-form-item>
 
       <a-form-item
-        label="Password"
+        label="密码"
         name="userPassword"
-        :rules="[{ required: true, message: 'Please input your password!' }]"
+        :rules="[{ required: true, message: '请输入密码' }]"
       >
         <a-input-password v-model:value="formState.userPassword" />
       </a-form-item>
@@ -30,8 +32,8 @@
       <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
     </a-form-item> -->
 
-      <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-        <a-button type="primary" html-type="submit">登录</a-button>
+      <a-form-item class="login-page__submit">
+        <a-button type="primary" block html-type="submit">登录</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -74,7 +76,31 @@ const handleSubmit = async () => {
 }
 </script>
 
-<style>
-.home {
+<style scoped>
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 72px 16px 48px;
+  box-sizing: border-box;
+}
+
+.login-page__title {
+  margin: 0 0 40px;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.login-page__form {
+  width: 100%;
+  max-width: 360px;
+}
+
+.login-page__submit {
+  margin-bottom: 0;
 }
 </style>
