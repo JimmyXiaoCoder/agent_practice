@@ -19,6 +19,7 @@ import com.ai_gen.model.vo.AppVO;
 import com.ai_gen.model.vo.UserVO;
 import com.ai_gen.response.BaseResponse;
 import com.ai_gen.service.AppService;
+import com.ai_gen.service.ChatHistoryService;
 import com.ai_gen.service.UserService;
 import com.ai_gen.utils.RandomUtil;
 import com.ai_gen.utils.ResultUtils;
@@ -52,6 +53,9 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
 
     @Resource
     private AiCodeGeneratorFacade aiCodeGeneratorFacade;
+
+    @Resource
+    private ChatHistoryService chatHistoryService;
 
     @Override
     public Long addApp(AppAddRequest appAddRequest, User loginUser) {
@@ -115,6 +119,8 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
         if (!oldApp.getUserId().equals(loginUser.getId()) || loginUser.getUserRole().equals(UserConstant.ADMIN_ROLE)) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "无权限删除该应用");
         }
+        // 级联删除对话历史
+        chatHistoryService.removeByAppId(id);
         return this.removeById(id);
     }
 
@@ -193,6 +199,8 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
         if (ObjUtil.isEmpty(app)) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "应用不存在");
         }
+        // 级联删除对话历史
+        chatHistoryService.removeByAppId(id);
         return this.removeById(id);
     }
 
@@ -316,7 +324,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
             throw new BusinessException(ErrorCode.PARAMS_ERROR,"不支持的代码生成类型");
         }
 
-        Flux<String> stringFlux = aiCodeGeneratorFacade.generateAndSaveCodeStream(message, typeByValue, appId);
+        Flux<String> stringFlux = aiCodeGeneratorFacade.generateAndSaveCodeStream(message, typeByValue, appId, loginUser.getId());
 
         return stringFlux;
     }
