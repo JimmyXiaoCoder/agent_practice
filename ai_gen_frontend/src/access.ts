@@ -10,9 +10,12 @@ router.beforeEach(async (to, from, next) => {
 
     const loginStore = userLoginStore()
 
-    // 如果是首次访问，获取登录用户
+    // 如果是首次访问，获取登录用户（公开页面跳过，避免 40100 导致跳转）
+    const publicPages = ['/user/login', '/user/register']
     if (firstVisit) {
-        await loginStore.handleLogin()
+        if (!publicPages.includes(to.path)) {
+            await loginStore.handleLogin()
+        }
         firstVisit = false
     }
 
