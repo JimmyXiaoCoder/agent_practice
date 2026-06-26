@@ -98,7 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
         User user = this.mapper.selectOneByQuery(query);
 
         String encryptPassword = getEncryptPassword(userPassword);
-        if(encryptPassword.equals(user.getUserPassword())) {
+        if(ObjUtil.isNotNull(user) && encryptPassword.equals(user.getUserPassword())) {
             request.getSession().setAttribute(USER_LOGIN_STATE,user);
             return getLoginUserVO(user);
         }
